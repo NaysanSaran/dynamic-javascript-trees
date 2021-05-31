@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <html>
+        <head>
+            <title>Simple JavaScript Tree</title>
+            <meta charset="utf-8">
+
+            <link rel="stylesheet" href="css/d3-mitch-tree.css">
+            <link rel="stylesheet" href="css/d3-mitch-tree-theme-default.css">
+
+            <script src="js/d3-mitch-tree.js"></script>
+            <script src="js/simple_tree.js"></script>
+        </head>
+
+        <body>
+            <!-- div that will contain the tree -->
+            <div id="my_tree" style="width:800px;height:500px;border:1px solid grey;"></div>
+
+            <script>
+               // Create a new d3.mitchTree object and set the data source
+               var treePlugin = new d3.mitchTree.boxedTree()
+                   .setData(data) // the data variable comes from simple_tree.js
+                   .setElement(document.getElementById("my_tree"))
+                   .setIdAccessor(function(data) {
+                       return data.id;
+                   })
+                   .setChildrenAccessor(function(data) {
+                       return data.children;
+                   })
+                   .setBodyDisplayTextAccessor(function(data) {
+                       return data.value;
+                   })
+                   .setTitleDisplayTextAccessor(function(data) {
+                       return data.title;
+                   })
+                   .initialize();
+            </script>
+        </body>
+    </html>
+
