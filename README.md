@@ -19,7 +19,7 @@ An in-depth paragraph about your project and overview of use.
 
 Contains the code to recreate this tree
 
-<img src="./img/01_simplest.png" \>
+![Result of 01](./img/01_simplest.png)
 
 
 ### 02_custom_css_body
