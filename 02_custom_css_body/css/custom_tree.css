@@ -1,0 +1,17 @@
+
+.mitch-d3-tree.boxed-tree.default .good_grade .body-group .body-box {
+    stroke  : #0000b3;
+    fill    : #ffffff;
+    stroke-width: 3;
+}
+.mitch-d3-tree.boxed-tree.default .bad_grade .body-group .body-box {
+    stroke  : #df1019;
+    fill    : #ffffff;
+    stroke-width: 3;
+}
+.mitch-d3-tree.boxed-tree.default .parent .body-group .body-box {
+    stroke  : #000000;
+    fill    : #ffffff;
+    stroke-width: 3;
+}
+

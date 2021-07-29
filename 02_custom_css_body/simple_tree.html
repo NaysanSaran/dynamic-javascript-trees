@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>Simple JavaScript Tree</title>
+        <meta charset="utf-8">
+
+        <link rel="stylesheet" href="css/d3-mitch-tree.css">
+        <link rel="stylesheet" href="css/d3-mitch-tree-theme-default.css">
+        <link rel="stylesheet" href="css/custom_tree.css"> <!-- my custom css -->
+
+        <script src="js/d3-mitch-tree.js"></script>
+        <script src="js/simple_tree.js"></script>
+    </head>
+
+    <body>
+        <!-- div that will contain the tree -->
+        <div id="my_tree" style="width:800px;height:500px;border:1px solid grey;"></div>
+
+        <script>
+            // Create a new d3.mitchTree object and set the data source
+            var treePlugin = new d3.mitchTree.boxedTree()
+                .setData(data) // the data variable comes from simple_tree.js
+                .setElement(document.getElementById("my_tree"))
+                .setIdAccessor(function(data) {
+                    return data.id;
+                })
+                .setChildrenAccessor(function(data) {
+                    return data.children;
+                })
+                .setBodyDisplayTextAccessor(function(data) {
+                    // Return the grade property only if it is defined
+                    if (data.grade != null) {
+                        return data.grade;
+                    }
+                    return "Student Grades";
+                })
+                .setTitleDisplayTextAccessor(function(data) {
+                    return data.title;
+                })
+                .initialize();
+
+            // Let's override the colors depending on the grade
+            function updateTreeClasses(treePlugin) {
+                treePlugin.getPanningContainer().selectAll("g.node")
+                    .attr("class", function(data, index, arr) {
+
+                        var grade = data.data.grade;
+
+                        if (grade == null) {
+                            var grade_class = "parent";
+                        } else if (grade > 65) {
+                            var grade_class = "good_grade";
+                        } else {
+                            var grade_class = "bad_grade";
+                        }
+
+                        // Add the grade CSS class on top of the other tree node classes
+                        // if required
+                        var existingClasses = this.getAttribute("class");
+                        if (!existingClasses)
+                            return grade_class;
+                        var hasClassAlready = (" " + existingClasses + " ").indexOf(" " + grade_class + " ") > -1;
+                        if (hasClassAlready)
+                            return existingClasses;
+                        return existingClasses + " " + grade_class;
+                    });
+            }
+
+            // Override the core update method, to call our custom update method
+            treePlugin.update = function(nodeDataItem){
+                this.__proto__.update.call(this, nodeDataItem);
+                updateTreeClasses(this);
+            }
+            updateTreeClasses(treePlugin);
+
+        </script>
+    </body>
+</html>
+
