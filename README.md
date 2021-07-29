@@ -26,6 +26,6 @@ Contains the code to recreate this tree
 
 Contains the code to recreate this tree
 
-<img src="./img/02_custom_css_body.png" \>
+![Result of 02](./img/02_custom_css_body.png)
 
 
